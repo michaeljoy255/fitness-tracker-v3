@@ -70,10 +70,11 @@ function seedRoutines() {
             },{
                 type: "Chest", name: "Smith Flat Bench Press",
                 sets: [
-                    {weight: 90, reps: 10},
+                    {weight: 70, reps: 5},
                     {weight: 110, reps: 10},
-                    {weight: 110, reps: 10},
-                    {weight: 110, reps: 10}
+                    {weight: 112.5, reps: 10},
+                    {weight: 112.5, reps: 10},
+                    {weight: 112.5, reps: 10}
                 ]
             },{
                 type: "Chest", name: "Smith Incline Bench Press",
@@ -89,7 +90,7 @@ function seedRoutines() {
                     {weight: 90, reps: 10},
                     {weight: 110, reps: 10},
                     {weight: 110, reps: 10},
-                    {weight: 110, reps: 10}
+                    {weight: 112.5, reps: 10}
                 ]
             },{
                 type: "Chest", name: "Fly Machine (Chest)",
@@ -106,18 +107,18 @@ function seedRoutines() {
                     {weight: 15.5, reps: 10}
                 ]
             },{
-                type: "Triceps", name: "Tricep Press Machine",
-                sets: [
-                    {weight: 160, reps: 10},
-                    {weight: 160, reps: 10},
-                    {weight: 160, reps: 10}
-                ]
-            },{
                 type: "Triceps", name: "Cable Rope Pulldowns",
                 sets: [
                     {weight: 35, reps: 10},
                     {weight: 35, reps: 10},
                     {weight: 35, reps: 10}
+                ]
+            },{
+                type: "Triceps", name: "Tricep Press Machine",
+                sets: [
+                    {weight: 160, reps: 10},
+                    {weight: 160, reps: 10},
+                    {weight: 160, reps: 10}
                 ]
             },{
                 type: "Triceps", name: "Laying Tricep Extensions",
@@ -139,7 +140,8 @@ function seedRoutines() {
             },{
                 type: "Back", name: "Smith Bent Over Rows",
                 sets: [
-                    {weight: 90, reps: 10},
+                    {weight: 70, reps: 5},
+                    {weight: 110, reps: 10},
                     {weight: 110, reps: 10},
                     {weight: 110, reps: 10},
                     {weight: 110, reps: 10}
@@ -264,9 +266,9 @@ function seedRoutines() {
             },{
                 type: "Legs", name: "Hip Adduction (In) Machine",
                 sets: [
-                    {weight: 150, reps: 10},
-                    {weight: 150, reps: 10},
-                    {weight: 150, reps: 10}
+                    {weight: 155, reps: 10},
+                    {weight: 155, reps: 10},
+                    {weight: 155, reps: 10}
                 ]
             },{
                 type: "Legs", name: "Standing Glute Press Machine",
