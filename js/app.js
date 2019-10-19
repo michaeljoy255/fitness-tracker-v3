@@ -48,7 +48,7 @@ function Details(rest, tempo, weightMax, weightMin, weightIncrement, sets) {
 };
 
 // An individual exercise set
-function Set(weight, reps) {
+function WeightSet(weight, reps) {
     this.weight = weight;
     this.reps = reps;
 };
@@ -77,319 +77,235 @@ var INTENSITY = [
 ];
 ////////////////////////////////////////////////////////////////////////////////
 
-// Seed routines until a database solution is used
-function seedRoutines() {
-    let routines = [
-        {name: "Chest and Triceps", exercises: []},
-        {name: "Back and Biceps", exercises: []},
-        {name: "Legs, Shoulders, and Core", exercises: []},
-    ];
+let defaultProfile = new Profile("Guest", "example@example.com", [
+    new Routine("Chest and Triceps", [
+        new Exercise("Cardio", "Elliptical", "", "", "", 7),
+        new Exercise("Chest", "Flat Bench Press", "", "", "", null, new Details(
+            "", "", 400, 20, 2.5, [
+                new WeightSet(70, 8),
+                new WeightSet(110, 10),
+                new WeightSet(112.5, 10),
+                new WeightSet(112.5, 10),
+                new WeightSet(112.5, 10)
+            ]
+        )),
+        new Exercise("Chest", "Incline Bench Press", "", "", "", null, new Details(
+            "", "", 400, 20, 2.5, [
+                new WeightSet(50, 10),
+                new WeightSet(70, 10),
+                new WeightSet(70, 10),
+                new WeightSet(70, 10)
+            ]
+        )),
+        new Exercise("Chest", "Decline Bench Press", "", "", "", null, new Details(
+            "", "", 400, 20, 2.5, [
+                new WeightSet(90, 10),
+                new WeightSet(110, 10),
+                new WeightSet(110, 10),
+                new WeightSet(110, 10)
+            ]
+        )),
+        new Exercise("Chest", "Fly Machine (Chest)", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(100, 10),
+                new WeightSet(100, 10),
+                new WeightSet(100, 10)
+            ]
+        )),
+        new Exercise("Chest", "Cable Chest Side Pulls", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(15.5, 10),
+                new WeightSet(15.5, 10),
+                new WeightSet(15.5, 10)
+            ]
+        )),
+        new Exercise("Triceps", "Cable Rope Pulldowns", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(35, 10),
+                new WeightSet(35, 10),
+                new WeightSet(35, 10)
+            ]
+        )),
+        new Exercise("Triceps", "Tricep Press Machine", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(160, 10),
+                new WeightSet(160, 10),
+                new WeightSet(160, 10)
+            ]
+        )),
+        new Exercise("Triceps", "Laying Tricep Extensions", "", "", "", null, new Details(
+            "", "", 120, 5, 5, [
+                new WeightSet(40, 10),
+                new WeightSet(40, 10),
+                new WeightSet(40, 10)
+            ]
+        )),
+        new Exercise("Miscellanous", "Stretching", "", "", "", 8)
+    ]),
+    new Routine("Back and Biceps", [
+        new Exercise("Cardio", "Elliptical", "", "", "", 8),
+        new Exercise("Back", "Bent Over Rows", "", "", "", null, new Details(
+            "", "", 400, 20, 2.5, [
+                new WeightSet(70, 8),
+                new WeightSet(110, 10),
+                new WeightSet(110, 10),
+                new WeightSet(110, 10),
+                new WeightSet(110, 10)
+            ]
+        )),
+        new Exercise("Back", "Shrugs", "", "", "", null, new Details(
+            "", "", 400, 20, 2.5, [
+                new WeightSet(160, 10),
+                new WeightSet(180, 10),
+                new WeightSet(180, 10),
+                new WeightSet(180, 10)
+            ]
+        )),
+        new Exercise("Back", "Stiff-Legged Deadlifts", "", "", "", null, new Details(
+            "", "", 400, 20, 2.5, [
+                new WeightSet(70, 10),
+                new WeightSet(90, 10),
+                new WeightSet(90, 10),
+                new WeightSet(90, 10)
+            ]
+        )),
+        new Exercise("Back", "Assisted Pull-up Machine (3 versions)", "", "", "", null, new Details(
+            "", "", 200, 0, 5, [
+                new WeightSet(70, 10),
+                new WeightSet(90, 10),
+                new WeightSet(90, 10),
+                new WeightSet(90, 10)
+            ]
+        )),
+        new Exercise("Back", "Fly Machine (Back)", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(80, 10),
+                new WeightSet(80, 10),
+                new WeightSet(80, 10)
+            ]
+        )),
+        new Exercise("Biceps", "Underhand Curls", "", "", "", null, new Details(
+            "", "", 120, 5, 5, [
+                new WeightSet(50, 10),
+                new WeightSet(50, 10),
+                new WeightSet(50, 10)
+            ]
+        )),
+        new Exercise("Biceps", "Hammer Curls", "", "", "", null, new Details(
+            "", "", 120, 5, 5, [
+                new WeightSet(25, 10),
+                new WeightSet(25, 10),
+                new WeightSet(25, 10)
+            ]
+        )),
+        new Exercise("Biceps", "Overhand Curls", "", "", "", null, new Details(
+            "", "", 120, 5, 5, [
+                new WeightSet(30, 10),
+                new WeightSet(30, 10),
+                new WeightSet(30, 10)
+            ]
+        )),
+        new Exercise("Miscellanous", "Stretching", "", "", "", 8)
+    ]),
+    new Routine("Legs, Shoulders, and Core", [
+        new Exercise("Cardio", "Elliptical", "", "", "", 8),
+        new Exercise("Shoulders", "Shoulder Press Machine", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(70, 10),
+                new WeightSet(70, 10),
+                new WeightSet(70, 10)
+            ]
+        )),
+        new Exercise("Shoulders", "Side Raises", "", "", "", null, new Details(
+            "", "", 60, 2.5, 2.5, [
+                new WeightSet(10, 10),
+                new WeightSet(10, 10),
+                new WeightSet(10, 10)
+            ]
+        )),
+        new Exercise("Shoulders", "Front Raises", "", "", "", null, new Details(
+            "", "", 60, 2.5, 2.5, [
+                new WeightSet(10, 10),
+                new WeightSet(10, 10),
+                new WeightSet(10, 10)
+            ]
+        )),
+        new Exercise("Legs", "Leg Press Machine", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(160, 10),
+                new WeightSet(160, 10),
+                new WeightSet(160, 10)
+            ]
+        )),
+        new Exercise("Legs", "Leg Curl Machine", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(75, 10),
+                new WeightSet(75, 10),
+                new WeightSet(75, 10)
+            ]
+        )),
+        new Exercise("Legs", "Leg Extension Machine", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(75, 10),
+                new WeightSet(75, 10),
+                new WeightSet(75, 10)
+            ]
+        )),
+        new Exercise("Legs", "Calf Extension Machine", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(160, 10),
+                new WeightSet(160, 10),
+                new WeightSet(160, 10)
+            ]
+        )),
+        new Exercise("Legs", "Hip Abduction (Out) Machine", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(190, 10),
+                new WeightSet(190, 10),
+                new WeightSet(190, 10)
+            ]
+        )),
+        new Exercise("Legs", "Hip Adduction (In) Machine", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(155, 10),
+                new WeightSet(155, 10),
+                new WeightSet(155, 10)
+            ]
+        )),
+        new Exercise("Legs", "Standing Glute Machine", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(110, 10),
+                new WeightSet(110, 10),
+                new WeightSet(110, 10)
+            ]
+        )),
+        new Exercise("Core", "Abdominal Crunch Machine", "", "", "", null, new Details(
+            "", "", 200, 5, 5, [
+                new WeightSet(35, 25),
+                new WeightSet(35, 25),
+                new WeightSet(35, 25),
+                new WeightSet(35, 25)
+            ]
+        )),
+        new Exercise("Core", "Barbell Standing Core Twist", "", "", "", null, new Details(
+            "", "", 60, 10, 10, [
+                new WeightSet(50, 50),
+                new WeightSet(50, 50)
+            ]
+        )),
+        new Exercise("Core", "Oblique Side Bend", "", "", "", null, new Details(
+            "", "", 60, 5, 5, [
+                new WeightSet(45, 25),
+                new WeightSet(45, 25),
+                new WeightSet(45, 25),
+                new WeightSet(45, 25)
+            ]
+        )),
+        new Exercise("Miscellanous", "Stretching", "", "", "", 8)
+    ])
+]);
 
-    routines.forEach(routine => {
-        // First Routine --------------------------
-        if (routine.name === "Chest and Triceps") {
-            routine.exercises.push({
-                category: "Cardio", name: "Warmup",
-                duration: 7
-            },{
-                category: "Chest", name: "Smith Flat Bench Press",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 70, reps: 5},
-                        {weight: 110, reps: 10},
-                        {weight: 112.5, reps: 10},
-                        {weight: 112.5, reps: 10},
-                        {weight: 112.5, reps: 10}
-                    ]
-                }
-            },{
-                category: "Chest", name: "Smith Incline Bench Press",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 50, reps: 10},
-                        {weight: 70, reps: 10},
-                        {weight: 70, reps: 10},
-                        {weight: 70, reps: 10}
-                    ]
-                }
-            },{
-                category: "Chest", name: "Smith Decline Bench Press",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 90, reps: 10},
-                        {weight: 110, reps: 10},
-                        {weight: 110, reps: 10},
-                        {weight: 112.5, reps: 10}
-                    ]
-                }
-            },{
-                category: "Chest", name: "Fly Machine (Chest)",
-                resistenceDetails: {
-                        sets: [
-                        {weight: 100, reps: 10},
-                        {weight: 100, reps: 10},
-                        {weight: 100, reps: 10}
-                    ]
-                }
-            },{
-                category: "Chest", name: "Cable Chest Side Pulls",
-                resistenceDetails: {
-                        sets: [
-                        {weight: 15.5, reps: 10},
-                        {weight: 15.5, reps: 10},
-                        {weight: 15.5, reps: 10}
-                    ]
-                }
-            },{
-                category: "Triceps", name: "Cable Rope Pulldowns",
-                resistenceDetails: {
-                        sets: [
-                        {weight: 35, reps: 10},
-                        {weight: 35, reps: 10},
-                        {weight: 35, reps: 10}
-                    ]
-                }
-            },{
-                category: "Triceps", name: "Tricep Press Machine",
-                resistenceDetails: {
-                        sets: [
-                        {weight: 160, reps: 10},
-                        {weight: 160, reps: 10},
-                        {weight: 160, reps: 10}
-                    ]
-                }
-            },{
-                category: "Triceps", name: "Laying Tricep Extensions",
-                resistenceDetails: {
-                        sets: [
-                        {weight: 40, reps: 10},
-                        {weight: 40, reps: 10},
-                        {weight: 40, reps: 10}
-                    ]
-                }
-            },{
-                category: "Miscellanous", name: "Post-Workout Stretch",
-                duration: 8
-            });
-        };
-        // Second Routine -----------------------
-        if (routine.name === "Back and Biceps") {
-            routine.exercises.push({
-                category: "Cardio", name: "Warmup",
-                duration: 7
-            },{
-                category: "Back", name: "Smith Bent Over Rows",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 70, reps: 5},
-                        {weight: 110, reps: 10},
-                        {weight: 110, reps: 10},
-                        {weight: 110, reps: 10},
-                        {weight: 110, reps: 10}
-                    ]
-                }
-            },{
-                category: "Back", name: "Smith Shrugs",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 160, reps: 10},
-                        {weight: 180, reps: 10},
-                        {weight: 180, reps: 10},
-                        {weight: 180, reps: 10}
-                    ]
-                }
-            },{
-                category: "Back", name: "Smith Stiff-Legged Deadlifts",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 70, reps: 10},
-                        {weight: 90, reps: 10},
-                        {weight: 90, reps: 10},
-                        {weight: 90, reps: 10}
-                    ]
-                }
-            },{
-                category: "Back", name: "Assisted Pull-ups (3 versions)",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 45, reps: 10},
-                        {weight: 45, reps: 10},
-                        {weight: 45, reps: 10}
-                    ]
-                }
-            },{
-                category: "Back", name: "Fly Machine (Back)",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 80, reps: 10},
-                        {weight: 80, reps: 10},
-                        {weight: 80, reps: 10}
-                    ]
-                }
-            },{
-                category: "Biceps", name: "Barbell Underhand Curls",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 50, reps: 10},
-                        {weight: 50, reps: 10},
-                        {weight: 50, reps: 10}
-                    ]
-                }
-            },{
-                category: "Biceps", name: "Dumbbell Hammer Curls",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 25, reps: 10},
-                        {weight: 25, reps: 10},
-                        {weight: 25, reps: 10}
-                    ]
-                }
-            },{
-                category: "Biceps", name: "Barbell Overhand Curls",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 30, reps: 10},
-                        {weight: 30, reps: 10},
-                        {weight: 30, reps: 10}
-                    ]
-                }
-            },{
-                category: "Miscellanous", name: "Post-Workout Stretch",
-                duration: 8
-            });
-        };
-        // Third Routine ----------------------------------
-        if (routine.name === "Legs, Shoulders, and Core") {
-            routine.exercises.push({
-                category: "Cardio", name: "Warmup",
-                duration: 7
-            },{
-                category: "Shoulders", name: "Seated Shoulder Press Machine",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 70, reps: 10},
-                        {weight: 70, reps: 10},
-                        {weight: 70, reps: 10}
-                    ]
-                }
-            },{
-                category: "Shoulders", name: "Dumbbell Side (Lateral) Raises",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 10, reps: 10},
-                        {weight: 10, reps: 10},
-                        {weight: 10, reps: 10}
-                    ]
-                }
-            },{
-                category: "Shoulders", name: "Dumbbell Front Raises",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 10, reps: 10},
-                        {weight: 10, reps: 10},
-                        {weight: 10, reps: 10}
-                    ]
-                }
-            },{
-                category: "Legs", name: "Leg Press Machine",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 160, reps: 10},
-                        {weight: 160, reps: 10},
-                        {weight: 160, reps: 10}
-                    ]
-                }
-            },{
-                category: "Legs", name: "Leg Curl Machine",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 75, reps: 10},
-                        {weight: 75, reps: 10},
-                        {weight: 75, reps: 10}
-                    ]
-                }
-            },{
-                category: "Legs", name: "Leg Extension Machine",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 75, reps: 10},
-                        {weight: 75, reps: 10},
-                        {weight: 75, reps: 10}
-                    ]
-                }
-            },{
-                category: "Legs", name: "Calf Extension Machine",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 160, reps: 10},
-                        {weight: 160, reps: 10},
-                        {weight: 160, reps: 10}
-                    ]
-                }
-            },{
-                category: "Legs", name: "Hip Abduction (Out) Machine",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 190, reps: 10},
-                        {weight: 190, reps: 10},
-                        {weight: 190, reps: 10}
-                    ]
-                }
-            },{
-                category: "Legs", name: "Hip Adduction (In) Machine",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 155, reps: 10},
-                        {weight: 155, reps: 10},
-                        {weight: 155, reps: 10}
-                    ]
-                }
-            },{
-                category: "Legs", name: "Standing Glute Press Machine",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 110, reps: 10},
-                        {weight: 110, reps: 10},
-                        {weight: 110, reps: 10}
-                    ]
-                }
-            },{
-                category: "Core", name: "Abdominal Crunch Machine",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 35, reps: 25},
-                        {weight: 35, reps: 25},
-                        {weight: 35, reps: 25},
-                        {weight: 35, reps: 25}
-                    ]
-                }
-            },{
-                category: "Core", name: "Barbell Standing Core Twist",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 50, reps: 50},
-                        {weight: 50, reps: 50}
-                    ]
-                }
-            },{
-                category: "Core", name: "Dumbbell Oblique Side Bend",
-                resistenceDetails: {
-                    sets: [
-                        {weight: 45, reps: 25},
-                        {weight: 45, reps: 25},
-                        {weight: 45, reps: 25},
-                        {weight: 45, reps: 25}
-                    ]
-                }
-            },{
-                category: "Miscellanous", name: "Post-Workout Stretch",
-                duration: 8
-            });
-        };
-    });
-
-    return routines;
-};
+console.log(defaultProfile);
 
 // Returns string with MM/DD/YYYY date format
 function getDate() {
