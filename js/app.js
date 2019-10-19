@@ -348,5 +348,5 @@ var routines = seedRoutines();
 var workout = createWorkout();
 var startTime = startWorkoutTimer();
 
-// ...
-endWorkoutTimer(startTime, workout);
+// material design js example
+mdc.ripple.MDCRipple.attachTo(document.querySelector('.ripple-button'));
