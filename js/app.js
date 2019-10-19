@@ -1,64 +1,56 @@
+"use strict"
 ////////////////////////////////////////////////////////////////////////////////
 // *** Future data examples ***
 ////////////////////////////////////////////////////////////////////////////////
 
 // Top level user profile
-function _initProfile() {
-    return {
-        username: String,
-        email: String,
-        routines: [], // named collection of exercises and past performances
-        workouts: [] // completed collection of exercises
-    };
+function Profile(username, email, routines, exercises) {
+    this.username = username;
+    this.email = email;
+    this.routines = routines; // named exercises collection of past performances
+    this.exercises = exercises; // completed exercises collection
 };
 
-// Routines are saved groups of exercises with a name and previous performance
-function _initRoutine() {
-    return {
-        name: String,
-        exercises: []
-    };
+// Routines are named exercise collections with previous performances
+function Routine(name, exercises) {
+    this.name = name;
+    this.exercises = exercises;
 };
 
 // Workout contains all exercise data from a date
-function _initWorkout() {
-    return {
-        date: Date, // MM/DD/YYYY string
-        bodyWeight: Number,
-        bodyFat: Number,
-        duration: Number, // total workout time
-        exercises: []
-    };
+function Workout(date, bodyWeight, bodyFat, duration, exercises) {
+    this.date = date; // MM/DD/YYYY string
+    this. bodyWeight = bodyWeight;
+    this.bodyFat = bodyFat;
+    this.duration = duration; // total workout time
+    this.exercises = exercises;
 };
 
 // A single exercise within a workout
-function _initExercise() {
-    return {
-        category: String, // ENUM of exercise categories
-        name: String,
-        desc: String,
-        notes: String,
-        intensity: String, // ENUM of intensities
-        duration: Number, // total time for specific exercise (timerable?)
-        resistenceDetails: {}
-    };
+function Exercise(category, name, desc, notes, intensity, duration, details) {
+    this.category = category; // ENUM of exercise categories
+    this.name = name;
+    this.desc = desc;
+    this.notes = notes;
+    this.intensity = intensity; // ENUM of intensities
+    this.duration = duration; // total time for specific exercise (timerable?)
+    this.details = details;
 };
 
 // Details for resistence based exercises
-function _initResistenceDetails() {
-    return {
-        rest: Number, // approximate rest time between sets
-        tempo: String, // ENUM of tempos 
-        sets: []
-    };
+function Details(rest, tempo, weightMax, weightMin, weightIncrement, sets) {
+    this.rest = rest; // approximate rest time between sets
+    this.tempo = tempo; // ENUM of tempos 
+    this.weightMax = weightMax; // max weight for exercise
+    this.weightMin = weightMin; // min weight for exercise
+    this.weightIncrement = weightIncrement; // weight increments
+    this.sets = sets;
 };
 
 // An individual exercise set
-function _initSet() {
-    return {
-        weight: Number,
-        reps: Number
-    };
+function Set(weight, reps) {
+    this.weight = weight;
+    this.reps = reps;
 };
 
 // ENUMS
