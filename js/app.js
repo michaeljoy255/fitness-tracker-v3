@@ -1,60 +1,57 @@
 "use strict"
-////////////////////////////////////////////////////////////////////////////////
-// *** Future data examples ***
-////////////////////////////////////////////////////////////////////////////////
 
 // Top level user profile
-function Profile(username, email, routines, exercises) {
-    this.username = username;
-    this.email = email;
-    this.routines = routines; // named exercises collection of past performances
-    this.exercises = exercises; // completed exercises collection
+function Profile(username, email, routines, workouts) {
+    this.username = username || "";
+    this.email = email || "";
+    this.routines = routines || []; // named exercises collection of past performances
+    this.workouts = workouts || []; // completed exercises collection
 };
 
 // Routines are named exercise collections with previous performances
 function Routine(name, exercises) {
-    this.name = name;
-    this.exercises = exercises;
+    this.name = name || "";
+    this.exercises = exercises || [];
 };
 
 // Workout contains all exercise data from a date
 function Workout(date, bodyWeight, bodyFat, duration, exercises) {
-    this.date = date; // MM/DD/YYYY string
-    this. bodyWeight = bodyWeight;
-    this.bodyFat = bodyFat;
-    this.duration = duration; // total workout time
-    this.exercises = exercises;
+    this.date = date || ""; // MM/DD/YYYY string
+    this.bodyWeight = bodyWeight || null;
+    this.bodyFat = bodyFat || null;
+    this.duration = duration || null; // total workout time
+    this.exercises = exercises || [];
 };
 
 // A single exercise within a workout
 function Exercise(category, name, desc, notes, intensity, duration, details) {
-    this.category = category; // ENUM of exercise categories
-    this.name = name;
-    this.desc = desc;
-    this.notes = notes;
-    this.intensity = intensity; // ENUM of intensities
-    this.duration = duration; // total time for specific exercise (timerable?)
-    this.details = details;
+    this.category = category || ""; // ENUM of exercise categories
+    this.name = name || "";
+    this.desc = desc || "";
+    this.notes = notes || "";
+    this.intensity = intensity || ""; // ENUM of intensities
+    this.duration = duration || null; // total time for specific exercise (timerable?)
+    this.details = details || null;
 };
 
 // Details for resistence based exercises
 function Details(rest, tempo, weightMax, weightMin, weightIncrement, sets) {
-    this.rest = rest; // approximate rest time between sets
-    this.tempo = tempo; // ENUM of tempos 
-    this.weightMax = weightMax; // max weight for exercise
-    this.weightMin = weightMin; // min weight for exercise
-    this.weightIncrement = weightIncrement; // weight increments
-    this.sets = sets;
+    this.rest = rest || null; // approximate rest time between sets
+    this.tempo = tempo || null; // ENUM of tempos 
+    this.weightMax = weightMax || 400; // max weight for exercise
+    this.weightMin = weightMin || 0; // min weight for exercise
+    this.weightIncrement = weightIncrement || 5; // weight increments
+    this.sets = sets || [];
 };
 
 // An individual exercise set
 function WeightSet(weight, reps) {
-    this.weight = weight;
-    this.reps = reps;
+    this.weight = weight || null;
+    this.reps = reps || null;
 };
 
-// ENUMS
-var CATEGORY = [
+// ENUMS (not correctly implemented yet!)
+const CATEGORY = [
     "Chest",
     "Triceps",
     "Back",
@@ -65,18 +62,18 @@ var CATEGORY = [
     "Cardio",
     "Miscellanous"
 ];
-var TEMPO = [
+const TEMPO = [
     "Slow",
     "Average",
     "Fast"
 ];
-var INTENSITY = [
+const INTENSITY = [
     "Low",
     "Medium",
     "High"
 ];
-////////////////////////////////////////////////////////////////////////////////
 
+// Seed the default profile with some routines
 let defaultProfile = new Profile("Guest", "example@example.com", [
     new Routine("Chest and Triceps", [
         new Exercise("Cardio", "Elliptical", "", "", "", 7),
@@ -305,8 +302,6 @@ let defaultProfile = new Profile("Guest", "example@example.com", [
     ])
 ]);
 
-console.log(defaultProfile);
-
 // Returns string with MM/DD/YYYY date format
 function getDate() {
     const date = new Date();
@@ -316,34 +311,21 @@ function getDate() {
     return (month + "/" + day + "/" + year); 
 };
 
-function createWorkout() {
-    return {
-        date: getDate(),
-        bodyWeight: null,
-        duration: 0,
-        exercises: []
-    };
-};
-
-function startWorkoutTimer() {
-    return new Date();
-};
-
-function endWorkoutTimer(startTime, workout) {
+function getWorkoutDuration(startTime) {
     const endTime = new Date();
     let timeDiff = endTime - startTime; // in ms
     timeDiff /= 1000; // strip the ms 
     let seconds = Math.round(timeDiff); // get seconds
-    
-    // @TODO
+
+    // @TODO temp code below
     console.log(seconds + " seconds");
-    workout.duration = seconds;
+    defaultProfile.workouts[0].duration = seconds;
+    console.log(defaultProfile);
 };
 
-// -----BEGIN HERE-----
-var routines = seedRoutines();
-var workout = createWorkout();
-var startTime = startWorkoutTimer();
+// ----------BEGIN HERE----------
+defaultProfile.workouts.push(new Workout(getDate(), null, null, 0, []));
+var startTime = new Date();
 
 // material design js example
 mdc.ripple.MDCRipple.attachTo(document.querySelector('.ripple-button'));
