@@ -326,13 +326,3 @@ function getWorkoutDuration(startTime) {
 // ----------BEGIN HERE----------
 defaultProfile.workouts.push(new Workout(getDate(), null, null, 0, []));
 var startTime = new Date();
-
-// material design js example
-console.log(mdc);
-mdc.ripple.MDCRipple.attachTo(document.querySelector('.ripple-button'));
-
-const drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
-const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.querySelector('#app-bar'));
-topAppBar.listen('MDCTopAppBar:nav', () => {
-  drawer.open = !drawer.open;
-});
