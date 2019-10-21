@@ -88,7 +88,8 @@ let defaultProfile = new Profile("Guest", "example@example.com", [
         )),
         new Exercise("Chest", "Incline Bench Press", "", "", "", null, new Details(
             "", "", 400, 20, 2.5, [
-                new WeightSet(50, 10),
+                new WeightSet(40, 8),
+                new WeightSet(70, 10),
                 new WeightSet(70, 10),
                 new WeightSet(70, 10),
                 new WeightSet(70, 10)
@@ -96,7 +97,8 @@ let defaultProfile = new Profile("Guest", "example@example.com", [
         )),
         new Exercise("Chest", "Decline Bench Press", "", "", "", null, new Details(
             "", "", 400, 20, 2.5, [
-                new WeightSet(90, 10),
+                new WeightSet(70, 8),
+                new WeightSet(110, 10),
                 new WeightSet(110, 10),
                 new WeightSet(110, 10),
                 new WeightSet(110, 10)
@@ -144,15 +146,16 @@ let defaultProfile = new Profile("Guest", "example@example.com", [
         new Exercise("Back", "Bent Over Rows", "", "", "", null, new Details(
             "", "", 400, 20, 2.5, [
                 new WeightSet(70, 8),
-                new WeightSet(110, 10),
-                new WeightSet(110, 10),
-                new WeightSet(110, 10),
-                new WeightSet(110, 10)
+                new WeightSet(112.5, 10),
+                new WeightSet(112.5, 10),
+                new WeightSet(112.5, 10),
+                new WeightSet(112.5, 10)
             ]
         )),
         new Exercise("Back", "Shrugs", "", "", "", null, new Details(
             "", "", 400, 20, 2.5, [
-                new WeightSet(160, 10),
+                new WeightSet(110, 8),
+                new WeightSet(180, 10),
                 new WeightSet(180, 10),
                 new WeightSet(180, 10),
                 new WeightSet(180, 10)
@@ -161,17 +164,17 @@ let defaultProfile = new Profile("Guest", "example@example.com", [
         new Exercise("Back", "Stiff-Legged Deadlifts", "", "", "", null, new Details(
             "", "", 400, 20, 2.5, [
                 new WeightSet(70, 10),
-                new WeightSet(90, 10),
-                new WeightSet(90, 10),
-                new WeightSet(90, 10)
+                new WeightSet(95, 10),
+                new WeightSet(95, 10),
+                new WeightSet(95, 10),
+                new WeightSet(95, 10)
             ]
         )),
         new Exercise("Back", "Assisted Pull-up Machine (3 versions)", "", "", "", null, new Details(
             "", "", 200, 0, 5, [
-                new WeightSet(70, 10),
-                new WeightSet(90, 10),
-                new WeightSet(90, 10),
-                new WeightSet(90, 10)
+                new WeightSet(40, 10),
+                new WeightSet(40, 10),
+                new WeightSet(40, 10)
             ]
         )),
         new Exercise("Back", "Fly Machine (Back)", "", "", "", null, new Details(
@@ -325,4 +328,3 @@ function getWorkoutDuration(startTime) {
 
 // ----------BEGIN HERE----------
 defaultProfile.workouts.push(new Workout(getDate(), null, null, 0, []));
-var startTime = new Date();
