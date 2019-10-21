@@ -26,13 +26,6 @@ function workoutTimer(startTime, id) {
     workoutTimer.interval = setTimeout(function(){ workoutTimer(startTime, id); }, 1000);
 }
 
-function completeWorkout() {
-    if (confirm("Complete this workout?")){
-        // transfer workout data from inputs to profile object?
-        window.location.href = "summary.html";
-    };
-};
-
 // Generate workout HTML
 $(document).ready(function(){
     var startTime = new Date().getTime();
@@ -50,6 +43,35 @@ $(document).ready(function(){
     $("#cancel").on('click', function(){
         if (confirm("Cancel this workout?")){
             window.location.href = "index.html";
+        };
+    });
+
+    // Complete button confirm dialogue
+    $("#complete").on('click', function(){
+        if (confirm("Complete this workout?")){
+            // transfer workout data from inputs to profile object
+            defaultProfile.routines.forEach((routine) => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const routineParam = urlParams.get('routine');
+
+                console.log(defaultProfile.workouts); // temp
+    
+                if (routine.name === routineParam) {
+                    routine.exercises.forEach((exercise, i) => {
+                        let id = "exercise" + i; // unique id
+    
+                        if (exercise.category === "Cardio" || exercise.category === "Miscellanous") {
+                            defaultProfile.workouts.exercises[i].duration = document.getElementById(id + "duration").value;
+                        } else {
+                            exercise.details.sets.forEach((set, i) => {
+                                defaultProfile.workouts.exercises[i].details.sets[i].weight = document.getElementById(id + "weight" + i).value;
+                                defaultProfile.workouts.exercises[i].details.sets[i].reps = document.getElementById(id + "reps" + i).value;
+                            });
+                        };
+                    });
+                };
+            });
+            console.log(defaultProfile.workouts); // temp
         };
     });
 
